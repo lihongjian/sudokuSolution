@@ -1,0 +1,270 @@
+<html>
+<header>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        .t_cell{
+            width:60px;
+            line-height:60px;
+            border-width: 0.5px;
+            margin-bottom: 0.5px;
+          /*  border-top-width: 0px ;
+            border-right-width: 0px;*/
+            border-style: solid;
+        }
+    </style>
+    <script src="scripts/lib/jquery/jquery-3.2.1.js"></script>
+</header>
+<body>
+<h2>Hello World!</h2>
+<form id="t_form">
+    <input class="t_cell" name="19" type="text">
+    <input class="t_cell" name="29" type="text">
+    <input class="t_cell" name="39" type="text">
+    <input class="t_cell" name="49" type="text">
+    <input class="t_cell" name="59" type="text">
+    <input class="t_cell" name="69" type="text">
+    <input class="t_cell" name="79" type="text">
+    <input class="t_cell" name="89" type="text">
+    <input class="t_cell" name="99" type="text">
+    <br>
+    <input class="t_cell" name="18" type="text">
+    <input class="t_cell" name="28" type="text">
+    <input class="t_cell" name="38" type="text">
+    <input class="t_cell" name="48" type="text">
+    <input class="t_cell" name="58" type="text">
+    <input class="t_cell" name="68" type="text">
+    <input class="t_cell" name="78" type="text">
+    <input class="t_cell" name="88" type="text">
+    <input class="t_cell" name="98" type="text"><br>
+    <input class="t_cell" name="17" type="text">
+    <input class="t_cell" name="27" type="text">
+    <input class="t_cell" name="37" type="text">
+    <input class="t_cell" name="47" type="text">
+    <input class="t_cell" name="57" type="text">
+    <input class="t_cell" name="67" type="text">
+    <input class="t_cell" name="77" type="text">
+    <input class="t_cell" name="87" type="text">
+    <input class="t_cell" name="97" type="text"><br>
+    <hr>
+    <input class="t_cell" name="16" type="text">
+    <input class="t_cell" name="26" type="text">
+    <input class="t_cell" name="36" type="text">
+    <input class="t_cell" name="46" type="text">
+    <input class="t_cell" name="56" type="text">
+    <input class="t_cell" name="66" type="text">
+    <input class="t_cell" name="76" type="text">
+    <input class="t_cell" name="86" type="text">
+    <input class="t_cell" name="96" type="text"><br>
+    <input class="t_cell" name="15" type="text">
+    <input class="t_cell" name="25" type="text">
+    <input class="t_cell" name="35" type="text">
+    <input class="t_cell" name="45" type="text">
+    <input class="t_cell" name="55" type="text">
+    <input class="t_cell" name="65" type="text">
+    <input class="t_cell" name="75" type="text">
+    <input class="t_cell" name="85" type="text">
+    <input class="t_cell" name="95" type="text"><br>
+    <input class="t_cell" name="14" type="text">
+    <input class="t_cell" name="24" type="text">
+    <input class="t_cell" name="34" type="text">
+    <input class="t_cell" name="44" type="text">
+    <input class="t_cell" name="54" type="text">
+    <input class="t_cell" name="64" type="text">
+    <input class="t_cell" name="74" type="text">
+    <input class="t_cell" name="84" type="text">
+    <input class="t_cell" name="94" type="text"><br>
+    <hr>
+    <input class="t_cell" name="13" type="text">
+    <input class="t_cell" name="23" type="text">
+    <input class="t_cell" name="33" type="text">
+    <input class="t_cell" name="43" type="text">
+    <input class="t_cell" name="53" type="text">
+    <input class="t_cell" name="63" type="text">
+    <input class="t_cell" name="73" type="text">
+    <input class="t_cell" name="83" type="text">
+    <input class="t_cell" name="93" type="text"><br>
+    <input class="t_cell" name="12" type="text">
+    <input class="t_cell" name="22" type="text">
+    <input class="t_cell" name="32" type="text">
+    <input class="t_cell" name="42" type="text">
+    <input class="t_cell" name="52" type="text">
+    <input class="t_cell" name="62" type="text">
+    <input class="t_cell" name="72" type="text">
+    <input class="t_cell" name="82" type="text">
+    <input class="t_cell" name="92" type="text"><br>
+    <input class="t_cell" name="11" type="text">
+    <input class="t_cell" name="21" type="text">
+    <input class="t_cell" name="31" type="text">
+    <input class="t_cell" name="41" type="text">
+    <input class="t_cell" name="51" type="text">
+    <input class="t_cell" name="61" type="text">
+    <input class="t_cell" name="71" type="text">
+    <input class="t_cell" name="81" type="text">
+    <input class="t_cell" name="91" type="text"><br>
+</form>
+
+<a href="#" onclick="doCalculate()">计算</a>
+<a href="#" onclick="onReset()">重置</a>
+<a href="#" onclick="doNextCalculate()">下一步计算</a>
+<a href="#" onclick="doCheck()">检查</a>
+<a href="#" onclick="doTmpSave()">暂存</a>
+<a href="#" onclick="doRecover()">恢复暂存</a>
+
+
+
+
+<script>
+
+    /**
+      * 将json对象赋值给form
+      * @param {dom} 指定的选择器
+      * @param {obj} 需要给form赋值的json对象
+      * @method serializeJson
+      * */
+    $.fn.setForm = function(jsonValue){
+        var obj = this;
+        $.each(jsonValue,function(name,ival){
+            var $oinput = obj.find("input[name="+name+"]");
+            if($oinput.attr("type")=="checkbox"){
+                if(ival !== null){
+                    var checkboxObj = $("[name="+name+"]");
+                    var checkArray = ival.split(";");
+                    for(var i=0;i<checkboxObj.length;i++){
+                        for(var j=0;j<checkArray.length;j++){
+                            if(checkboxObj[i].value == checkArray[j]){
+                                checkboxObj[i].click();
+                            }
+                        }
+                    }
+                }
+            }
+            else if($oinput.attr("type")=="radio"){
+                $oinput.each(function(){
+                    var radioObj = $("[name="+name+"]");
+                    for(var i=0;i<radioObj.length;i++){
+                        if(radioObj[i].value == ival){
+                            radioObj[i].click();
+                        }
+                    }
+                });
+            }
+            else if($oinput.attr("type")=="textarea"){
+                obj.find("[name="+name+"]").html(ival);
+            }
+            else{
+                obj.find("[name="+name+"]").val(ival);
+            }
+        })
+    }
+
+</script>
+<script>
+    var currentData;
+    function doCalculate(){
+
+        var o = {};
+        var data = $("#t_form").serializeArray();
+        $.each(data, function () {
+            if (this.value != '') {
+                o[this.name] = this.value ;
+            }
+        });
+        var condition =  JSON.stringify(o);
+        $.ajax({
+            url:'doCalculate.action',
+            method:"POST",
+            data:{
+                condition : condition
+            },
+            success:function(res){
+                currentData = res;
+                $('#t_form').setForm(res);
+            },
+            error:function(){
+
+            }
+        })
+    }
+    function onReset(){
+        $(".t_cell").val('');
+    }
+
+    function doNextCalculate(){
+        var o = {};
+        var data = $("#t_form").serializeArray();
+        $.each(data, function () {
+            if (this.value != '') {
+                o[this.name] = this.value ;
+            }
+        });
+        var condition =  JSON.stringify(o);
+/*
+        var condition =  JSON.stringify(currentData);
+*/
+        $.ajax({
+            url:'doCalculate.action',
+            method:"POST",
+            data:{
+                condition : condition
+            },
+            success:function(res){
+                currentData = res;
+                $('#t_form').setForm(res);
+            },
+            error:function(){
+
+            }
+        })
+    }
+
+    function doCheck(){
+        var o = {};
+        var data = $("#t_form").serializeArray();
+        $.each(data, function () {
+            if (this.value != '') {
+                o[this.name] = this.value ;
+            }
+        });
+        var condition =  JSON.stringify(o);
+/*
+        var condition =  JSON.stringify(currentData);
+*/
+        $.ajax({
+            url:'doCheck.action',
+            method:"POST",
+            data:{
+                condition : condition
+            },
+            success:function(res){
+                alert(res);
+            },
+            error:function(){
+
+            }
+        })
+    }
+
+    var tmp_condition;
+
+    function doTmpSave(){
+        var o = {};
+        var data = $("#t_form").serializeArray();
+        $.each(data, function () {
+            if (this.value != '') {
+                o[this.name] = this.value ;
+            }
+        });
+        tmp_condition =  o;
+
+    }
+
+    function doRecover(){
+        onReset();
+        $('#t_form').setForm(tmp_condition);
+    }
+</script>
+
+</body>
+
+
+</html>

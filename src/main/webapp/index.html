@@ -1,116 +1,307 @@
 <html>
 <header>
     <meta charset="UTF-8">
-    <style type="text/css">
-        .t_cell{
-            width:60px;
-            line-height:60px;
-            border-width: 0.5px;
-            margin-bottom: 0.5px;
-          /*  border-top-width: 0px ;
-            border-right-width: 0px;*/
-            border-style: solid;
+    <style>
+        html, body, div, table, tbody, tfoot, thead, tr, th, td {
+            border: 0;
+            outline: 0;
+            font-size: 10%;
+            vertical-align: baseline;
+            background: transparent;
+            margin: 0;
+            padding: 0;
         }
+
+        table {
+            border-spacing: 0;
+            display: table;
+            border-collapse: separate;
+        }
+
+        tbody {
+            display: table-row-group;
+            vertical-align: middle;
+            border-color: inherit;
+        }
+
+        tr {
+            display: table-row;
+            vertical-align: inherit;
+            border-color: inherit;
+        }
+
+        td, th {
+            display: table-cell;
+        }
+
+        input {
+            text-rendering: auto;
+            letter-spacing: normal;
+            word-spacing: normal;
+            text-transform: none;
+            text-indent: 0px;
+            text-shadow: none;
+            display: inline-block;
+            text-align: start;
+            margin: 0em;
+            font: 400 13.3333px Arial;
+            -webkit-writing-mode: horizontal-tb;
+            -webkit-appearance: textfield;
+            background-color: white;
+            -webkit-rtl-ordering: logical;
+            cursor: auto;
+        }
+
+        .ptb {
+            margin: 0;
+            padding: 0;
+            clear: both;
+            border: #443 3px solid;
+            table-layout: fixed;
+            width: 441px;
+            height: 441px;
+            background-color: #fff;
+        }
+
+        .ptb td.r0t1 {
+            width: 48px;
+            height: 48px;
+            border-top: #999 1px solid;
+        }
+
+        .ptb td.r0t2 {
+            width: 49px;
+            height: 47px;
+            border-top: #443 2px solid;
+        }
+
+        .ptb td.r1t0 {
+            width: 48px;
+            height: 48px;
+            border-right: #999 1px solid;
+        }
+
+        .ptb td.r1t1 {
+            width: 48px;
+            height: 48px;
+            border-right: #999 1px solid;
+            border-top: #999 1px solid;
+        }
+
+        .ptb td.r1t2 {
+            width: 48px;
+            height: 47px;
+            border-right: #999 1px solid;
+            border-top: #443 2px solid;
+        }
+
+        .ptb td.r2t0 {
+            width: 47px;
+            height: 48px;
+            border-right: #443 2px solid;
+        }
+
+        .ptb td.r2t1 {
+            width: 47px;
+            height: 48px;
+            border-right: #443 2px solid;
+            border-top: #999 1px solid;
+        }
+
+        .ptb td.r2t2 {
+            width: 47px;
+            height: 47px;
+            border-right: #443 2px solid;
+            border-top: #443 2px solid;
+        }
+
+        .ptb td {
+            text-align: center;
+            overflow: hidden;
+            vertical-align: middle !important;
+        }
+
+        .ptb td input {
+            margin: 2px;
+            padding: 0;
+            font-family: "lucida handwriting", "comic sans ms", cursive;
+            background-color: transparent;
+            width: 40px;
+            height: 40px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .ptb .sr {
+            font-size: 30px;
+            border: solid 1px #ffffff !important;
+            color: red;
+        }
+
+        .ptb .K0 {
+            font-size: 30px;
+            border: solid 1px #ffffff !important;
+            color: #7777dd;
+        }
+
+        .F0 {
+            background-color: #ffffcc !important;
+            font-size: 30px;
+            color: #7777dd;
+            border: solid 1px #ffcc00;
+        }
+
     </style>
     <script src="scripts/lib/jquery/jquery-3.2.1.js"></script>
+    <script>
+
+        var sd = {
+            onFocus: function (item) {
+            },
+            onBlur: function () {
+                $(this).attr("class", "K0");
+            },
+            onClick: function () {
+                $(this).attr("class", "F0");
+            },
+            onKeyUp: function (event) {
+                $(this).val($(this).val().replace(/[^\d]/g, ''));
+                /*  $(this).attr("class", "K0");*/
+            },
+            onKeydown: function (event) {
+                $(this).val('');
+            }
+        }
+
+        $(document).ready(function () {
+
+            $(".K0").each(function (index) {
+                $(this).click(sd.onClick);
+                $(this).blur(sd.onBlur)
+                $(this).keydown(sd.onKeydown);
+                $(this).keyup(sd.onKeyUp);
+                $(this).focus(sd.onFocus);
+            })
+
+        })
+    </script>
 </header>
 <body>
-<h2>Hello World!</h2>
+<h2 style="
+    font-size: 25px;
+">Hello World!</h2>
 <form id="t_form">
-    <input class="t_cell" name="19" type="text">
-    <input class="t_cell" name="29" type="text">
-    <input class="t_cell" name="39" type="text">
-    <input class="t_cell" name="49" type="text">
-    <input class="t_cell" name="59" type="text">
-    <input class="t_cell" name="69" type="text">
-    <input class="t_cell" name="79" type="text">
-    <input class="t_cell" name="89" type="text">
-    <input class="t_cell" name="99" type="text">
-    <br>
-    <input class="t_cell" name="18" type="text">
-    <input class="t_cell" name="28" type="text">
-    <input class="t_cell" name="38" type="text">
-    <input class="t_cell" name="48" type="text">
-    <input class="t_cell" name="58" type="text">
-    <input class="t_cell" name="68" type="text">
-    <input class="t_cell" name="78" type="text">
-    <input class="t_cell" name="88" type="text">
-    <input class="t_cell" name="98" type="text"><br>
-    <input class="t_cell" name="17" type="text">
-    <input class="t_cell" name="27" type="text">
-    <input class="t_cell" name="37" type="text">
-    <input class="t_cell" name="47" type="text">
-    <input class="t_cell" name="57" type="text">
-    <input class="t_cell" name="67" type="text">
-    <input class="t_cell" name="77" type="text">
-    <input class="t_cell" name="87" type="text">
-    <input class="t_cell" name="97" type="text"><br>
-    <hr>
-    <input class="t_cell" name="16" type="text">
-    <input class="t_cell" name="26" type="text">
-    <input class="t_cell" name="36" type="text">
-    <input class="t_cell" name="46" type="text">
-    <input class="t_cell" name="56" type="text">
-    <input class="t_cell" name="66" type="text">
-    <input class="t_cell" name="76" type="text">
-    <input class="t_cell" name="86" type="text">
-    <input class="t_cell" name="96" type="text"><br>
-    <input class="t_cell" name="15" type="text">
-    <input class="t_cell" name="25" type="text">
-    <input class="t_cell" name="35" type="text">
-    <input class="t_cell" name="45" type="text">
-    <input class="t_cell" name="55" type="text">
-    <input class="t_cell" name="65" type="text">
-    <input class="t_cell" name="75" type="text">
-    <input class="t_cell" name="85" type="text">
-    <input class="t_cell" name="95" type="text"><br>
-    <input class="t_cell" name="14" type="text">
-    <input class="t_cell" name="24" type="text">
-    <input class="t_cell" name="34" type="text">
-    <input class="t_cell" name="44" type="text">
-    <input class="t_cell" name="54" type="text">
-    <input class="t_cell" name="64" type="text">
-    <input class="t_cell" name="74" type="text">
-    <input class="t_cell" name="84" type="text">
-    <input class="t_cell" name="94" type="text"><br>
-    <hr>
-    <input class="t_cell" name="13" type="text">
-    <input class="t_cell" name="23" type="text">
-    <input class="t_cell" name="33" type="text">
-    <input class="t_cell" name="43" type="text">
-    <input class="t_cell" name="53" type="text">
-    <input class="t_cell" name="63" type="text">
-    <input class="t_cell" name="73" type="text">
-    <input class="t_cell" name="83" type="text">
-    <input class="t_cell" name="93" type="text"><br>
-    <input class="t_cell" name="12" type="text">
-    <input class="t_cell" name="22" type="text">
-    <input class="t_cell" name="32" type="text">
-    <input class="t_cell" name="42" type="text">
-    <input class="t_cell" name="52" type="text">
-    <input class="t_cell" name="62" type="text">
-    <input class="t_cell" name="72" type="text">
-    <input class="t_cell" name="82" type="text">
-    <input class="t_cell" name="92" type="text"><br>
-    <input class="t_cell" name="11" type="text">
-    <input class="t_cell" name="21" type="text">
-    <input class="t_cell" name="31" type="text">
-    <input class="t_cell" name="41" type="text">
-    <input class="t_cell" name="51" type="text">
-    <input class="t_cell" name="61" type="text">
-    <input class="t_cell" name="71" type="text">
-    <input class="t_cell" name="81" type="text">
-    <input class="t_cell" name="91" type="text"><br>
+    <table class="ptb" border="" cellspacing="" cellpadding="">
+        <tbody>
+        <tr>
+            <!--      <td class="r1t0"><input class="sr" id="11" name="11" value="5"
+                                          readonly="readonly"></td>-->
+            <td class="r1t0"><input class="K0" id="19" name="19" value=""></td>
+            <td class="r1t0"><input class="K0" id="29" name="29" value=""></td>
+            <td class="r2t0"><input class="K0" id="39" name="39" value=""></td>
+            <td class="r1t0"><input class="K0" id="49" name="49" value=""></td>
+            <td class="r1t0"><input class="K0" id="59" name="59" value=""></td>
+            <td class="r2t0"><input class="K0" id="69" name="69" value=""></td>
+            <td class="r1t0"><input class="K0" id="79" name="79" value=""></td>
+            <td class="r1t0"><input class="K0" id="89" name="89" value=""></td>
+            <td class="r0t0"><input class="K0" id="99" name="99" value=""></td>
+        </tr>
+        <tr>
+            <td class="r1t1"><input class="K0" id="18" name="18" value=""></td>
+            <td class="r1t1"><input class="K0" id="28" name="28" value=""></td>
+            <td class="r2t1"><input class="K0" id="38" name="38" value=""></td>
+            <td class="r1t1"><input class="K0" id="48" name="48" value=""></td>
+            <td class="r1t1"><input class="K0" id="58" name="58" value=""></td>
+            <td class="r2t1"><input class="K0" id="68" name="68" value=""></td>
+            <td class="r1t1"><input class="K0" id="78" name="78" value=""></td>
+            <td class="r1t1"><input class="K0" id="88" name="88" value=""></td>
+            <td class="r0t1"><input class="K0" id="98" name="98" value=""></td>
+        </tr>
+        <tr>
+            <td class="r1t1"><input class="K0" id="17" name="17" value=""></td>
+            <td class="r1t1"><input class="K0" id="27" name="27" value=""></td>
+            <td class="r2t1"><input class="K0" id="37" name="37" value=""></td>
+            <td class="r1t1"><input class="K0" id="47" name="47" value=""></td>
+            <td class="r1t1"><input class="K0" id="57" name="57" value=""></td>
+            <td class="r2t1"><input class="K0" id="67" name="67" value=""></td>
+            <td class="r1t1"><input class="K0" id="77" name="77" value=""></td>
+            <td class="r1t1"><input class="K0" id="87" name="87" value=""></td>
+            <td class="r0t1"><input class="K0" id="97" name="97" value=""></td>
+        </tr>
+        <tr>
+            <td class="r1t2"><input class="K0" id="16" name="16" value=""></td>
+            <td class="r1t2"><input class="K0" id="26" name="26" value=""></td>
+            <td class="r2t2"><input class="K0" id="36" name="36" value=""></td>
+            <td class="r1t2"><input class="K0" id="46" name="46" value=""></td>
+            <td class="r1t2"><input class="K0" id="56" name="56" value=""></td>
+            <td class="r2t2"><input class="K0" id="66" name="66" value=""></td>
+            <td class="r1t2"><input class="K0" id="76" name="76" value=""></td>
+            <td class="r1t2"><input class="K0" id="86" name="86" value=""></td>
+            <td class="r0t2"><input class="K0" id="96" name="96" value=""></td>
+        </tr>
+        <tr>
+            <td class="r1t1"><input class="K0" id="15" name="15" value=""></td>
+            <td class="r1t1"><input class="K0" id="25" name="25" value=""></td>
+            <td class="r2t1"><input class="K0" id="35" name="35" value=""></td>
+            <td class="r1t1"><input class="K0" id="45" name="45" value=""></td>
+            <td class="r1t1"><input class="K0" id="55" name="55" value=""></td>
+            <td class="r2t1"><input class="K0" id="65" name="65" value=""></td>
+            <td class="r1t1"><input class="K0" id="75" name="75" value=""></td>
+            <td class="r1t1"><input class="K0" id="85" name="85" value=""></td>
+            <td class="r0t1"><input class="K0" id="95" name="95" value=""></td>
+        </tr>
+        <tr>
+            <td class="r1t1"><input class="K0" id="14" name="14" value=""></td>
+            <td class="r1t1"><input class="K0" id="24" name="24" value=""></td>
+            <td class="r2t1"><input class="K0" id="34" name="34" value=""></td>
+            <td class="r1t1"><input class="K0" id="44" name="44" value=""></td>
+            <td class="r1t1"><input class="K0" id="54" name="54" value=""></td>
+            <td class="r2t1"><input class="K0" id="64" name="64" value=""></td>
+            <td class="r1t1"><input class="K0" id="74" name="74" value=""></td>
+            <td class="r1t1"><input class="K0" id="84" name="84" value=""></td>
+            <td class="r0t1"><input class="K0" id="94" name="94" value=""></td>
+        </tr>
+        <tr>
+            <td class="r1t2"><input class="K0" id="13" name="13" value=""></td>
+            <td class="r1t2"><input class="K0" id="23" name="23" value=""></td>
+            <td class="r2t2"><input class="K0" id="33" name="33" value=""></td>
+            <td class="r1t2"><input class="K0" id="43" name="43" value=""></td>
+            <td class="r1t2"><input class="K0" id="53" name="53" value=""></td>
+            <td class="r2t2"><input class="K0" id="63" name="63" value=""></td>
+            <td class="r1t2"><input class="K0" id="73" name="73" value=""></td>
+            <td class="r1t2"><input class="K0" id="83" name="83" value=""></td>
+            <td class="r0t2"><input class="K0" id="93" name="93" value=""></td>
+        </tr>
+        <tr>
+            <td class="r1t1"><input class="K0" id="12" name="12" value=""></td>
+            <td class="r1t1"><input class="K0" id="22" name="22" value=""></td>
+            <td class="r2t1"><input class="K0" id="32" name="32" value=""></td>
+            <td class="r1t1"><input class="K0" id="42" name="42" value=""></td>
+            <td class="r1t1"><input class="K0" id="52" name="52" value=""></td>
+            <td class="r2t1"><input class="K0" id="62" name="62" value=""></td>
+            <td class="r1t1"><input class="K0" id="72" name="72" value=""></td>
+            <td class="r1t1"><input class="K0" id="82" name="82" value=""></td>
+            <td class="r0t1"><input class="K0" id="92" name="92" value=""></td>
+        </tr>
+        <tr>
+            <td class="r1t1"><input class="K0" id="11" name="11" value=""></td>
+            <td class="r1t1"><input class="K0" id="21" name="21" value=""></td>
+            <td class="r2t1"><input class="K0" id="31" name="31" value=""></td>
+            <td class="r1t1"><input class="K0" id="41" name="41" value=""></td>
+            <td class="r1t1"><input class="K0" id="51" name="51" value=""></td>
+            <td class="r2t1"><input class="K0" id="61" name="61" value=""></td>
+            <td class="r1t1"><input class="K0" id="71" name="71" value=""></td>
+            <td class="r1t1"><input class="K0" id="81" name="81" value=""></td>
+            <td class="r0t1"><input class="K0" id="91" name="91" value=""></td>
+        </tr>
+        </tbody>
+    </table>
 </form>
-
-<a href="#" onclick="doCalculate()">计算</a>
-<a href="#" onclick="onReset()">重置</a>
-<a href="#" onclick="doNextCalculate()">下一步计算</a>
-<a href="#" onclick="doCheck()">检查</a>
-<a href="#" onclick="doTmpSave()">暂存</a>
-<a href="#" onclick="doRecover()">恢复暂存</a>
-
-
+<a style="font-size: 25px;margin-right: 20px" href="#" onclick="doCalculate()">计算</a>
+<a style="font-size: 25px;margin-right: 20px" href="#" onclick="onReset()">重置</a>
+<a style="font-size: 25px;margin-right: 20px" href="#" onclick="doCheck()">检查</a>
+<a style="font-size: 25px;margin-right: 20px" href="#" onclick="doTmpSave()">暂存</a>
+<a style="font-size: 25px;margin-right: 20px" href="#" onclick="doRecover()">恢复暂存</a>
 
 
 <script>
@@ -121,38 +312,40 @@
       * @param {obj} 需要给form赋值的json对象
       * @method serializeJson
       * */
-    $.fn.setForm = function(jsonValue){
+    $.fn.setForm = function (jsonValue) {
         var obj = this;
-        $.each(jsonValue,function(name,ival){
-            var $oinput = obj.find("input[name="+name+"]");
-            if($oinput.attr("type")=="checkbox"){
-                if(ival !== null){
-                    var checkboxObj = $("[name="+name+"]");
+        $.each(jsonValue, function (name, ival) {
+            var $oinput = obj.find("input[name=" + name + "]");
+            if ($oinput.attr("type") == "checkbox") {
+                if (ival !== null) {
+                    var checkboxObj = $("[name=" + name + "]");
                     var checkArray = ival.split(";");
-                    for(var i=0;i<checkboxObj.length;i++){
-                        for(var j=0;j<checkArray.length;j++){
-                            if(checkboxObj[i].value == checkArray[j]){
+                    for (var i = 0; i < checkboxObj.length; i++) {
+                        for (var j = 0; j < checkArray.length; j++) {
+                            if (checkboxObj[i].value == checkArray[j]) {
                                 checkboxObj[i].click();
                             }
                         }
                     }
+                    id = "(\d+)"
+                    name = "(\d+)"
                 }
             }
-            else if($oinput.attr("type")=="radio"){
-                $oinput.each(function(){
-                    var radioObj = $("[name="+name+"]");
-                    for(var i=0;i<radioObj.length;i++){
-                        if(radioObj[i].value == ival){
+            else if ($oinput.attr("type") == "radio") {
+                $oinput.each(function () {
+                    var radioObj = $("[name=" + name + "]");
+                    for (var i = 0; i < radioObj.length; i++) {
+                        if (radioObj[i].value == ival) {
                             radioObj[i].click();
                         }
                     }
                 });
             }
-            else if($oinput.attr("type")=="textarea"){
-                obj.find("[name="+name+"]").html(ival);
+            else if ($oinput.attr("type") == "textarea") {
+                obj.find("[name=" + name + "]").html(ival);
             }
-            else{
-                obj.find("[name="+name+"]").val(ival);
+            else {
+                obj.find("[name=" + name + "]").val(ival);
             }
         })
     }
@@ -160,85 +353,87 @@
 </script>
 <script>
     var currentData;
-    function doCalculate(){
+
+    function doCalculate() {
 
         var o = {};
         var data = $("#t_form").serializeArray();
         $.each(data, function () {
             if (this.value != '') {
-                o[this.name] = this.value ;
+                o[this.name] = this.value;
             }
         });
-        var condition =  JSON.stringify(o);
+        var condition = JSON.stringify(o);
         $.ajax({
-            url:'doCalculate.action',
-            method:"POST",
-            data:{
-                condition : condition
+            url: 'doCalculate.action',
+            method: "POST",
+            data: {
+                condition: condition
             },
-            success:function(res){
+            success: function (res) {
                 currentData = res;
                 $('#t_form').setForm(res);
             },
-            error:function(){
-
-            }
-        })
-    }
-    function onReset(){
-        $(".t_cell").val('');
-    }
-
-    function doNextCalculate(){
-        var o = {};
-        var data = $("#t_form").serializeArray();
-        $.each(data, function () {
-            if (this.value != '') {
-                o[this.name] = this.value ;
-            }
-        });
-        var condition =  JSON.stringify(o);
-/*
-        var condition =  JSON.stringify(currentData);
-*/
-        $.ajax({
-            url:'doCalculate.action',
-            method:"POST",
-            data:{
-                condition : condition
-            },
-            success:function(res){
-                currentData = res;
-                $('#t_form').setForm(res);
-            },
-            error:function(){
+            error: function () {
 
             }
         })
     }
 
-    function doCheck(){
+    function onReset() {
+        $(".K0").val('');
+    }
+
+    function doNextCalculate() {
         var o = {};
         var data = $("#t_form").serializeArray();
         $.each(data, function () {
             if (this.value != '') {
-                o[this.name] = this.value ;
+                o[this.name] = this.value;
             }
         });
-        var condition =  JSON.stringify(o);
-/*
-        var condition =  JSON.stringify(currentData);
-*/
+        var condition = JSON.stringify(o);
+        /*
+                var condition =  JSON.stringify(currentData);
+        */
         $.ajax({
-            url:'doCheck.action',
-            method:"POST",
-            data:{
-                condition : condition
+            url: 'doCalculate.action',
+            method: "POST",
+            data: {
+                condition: condition
             },
-            success:function(res){
+            success: function (res) {
+                currentData = res;
+                $('#t_form').setForm(res);
+            },
+            error: function () {
+
+            }
+        })
+    }
+
+    function doCheck() {
+        var o = {};
+        var data = $("#t_form").serializeArray();
+        $.each(data, function () {
+            if (this.value != '') {
+                o[this.name] = this.value;
+            }
+        });
+        var condition = JSON.stringify(o);
+        /*
+                var condition =  JSON.stringify(currentData);
+        */
+        $.ajax({
+            url: 'doCheck.action',
+            method: "POST",
+            data: {
+                condition: condition
+            },
+            success: function (res) {
                 alert(res);
             },
-            error:function(){
+            error: function () {
 
             }
         })
@@ -246,19 +441,19 @@
 
     var tmp_condition;
 
-    function doTmpSave(){
+    function doTmpSave() {
         var o = {};
         var data = $("#t_form").serializeArray();
         $.each(data, function () {
             if (this.value != '') {
-                o[this.name] = this.value ;
+                o[this.name] = this.value;
             }
         });
-        tmp_condition =  o;
+        tmp_condition = o;
 
     }
 
-    function doRecover(){
+    function doRecover() {
         onReset();
         $('#t_form').setForm(tmp_condition);
     }

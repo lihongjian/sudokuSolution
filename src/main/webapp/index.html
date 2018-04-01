@@ -11,29 +11,40 @@
             margin: 0;
             padding: 0;
         }
-
+        .mainDiv{
+            height:100%;
+            width:100%;
+            margin:0;
+        }
+        .buttonDiv{
+            width: fit-content;
+            margin:30 auto;
+        }
         table {
             border-spacing: 0;
             display: table;
             border-collapse: separate;
         }
-
         tbody {
             display: table-row-group;
             vertical-align: middle;
             border-color: inherit;
         }
-
         tr {
             display: table-row;
             vertical-align: inherit;
             border-color: inherit;
         }
-
         td, th {
             display: table-cell;
         }
-
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
         input {
             text-rendering: auto;
             letter-spacing: normal;
@@ -51,9 +62,8 @@
             -webkit-rtl-ordering: logical;
             cursor: auto;
         }
-
         .ptb {
-            margin: 0;
+            margin:0 auto;
             padding: 0;
             clear: both;
             border: #443 3px solid;
@@ -155,155 +165,229 @@
     <script src="scripts/lib/jquery/jquery-3.2.1.js"></script>
     <script>
 
+        var currentX=-1;
+        var currentY=-1;
+
+        var mainControl = {
+            onKeydown: function (event) {
+                event = window.event || event;
+                switch (event.keyCode) {
+                    case 37: //左键
+                        changeItem(-1,0);
+                        break;
+                    case 38: //向上键
+                        changeItem(0,1);
+                        break;
+                    case 39: //右键
+                        changeItem(1,0);
+                        break;
+                    case 40: //向下键
+                        changeItem(0,-1);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+
         var sd = {
             onFocus: function (item) {
+                $(this).css("ime-mode", "disabled");
+                currentX = parseInt($(this).attr('id').substring(0,1));
+                currentY = parseInt($(this).attr('id').substring(1,2));
+                $(this).attr("class", "F0");
             },
             onBlur: function () {
+                $(this).val($(this).val().replace(/[^1-9]/g, ''));
+                if ($(this).val().length > 1) {
+                    $(this).val($(this).val().substring($(this).val().length - 1, $(this).val().length));
+                }
                 $(this).attr("class", "K0");
             },
             onClick: function () {
                 $(this).attr("class", "F0");
             },
             onKeyUp: function (event) {
-                $(this).val($(this).val().replace(/[^\d]/g, ''));
-                /*  $(this).attr("class", "K0");*/
+                var numreg = /^[1-9]{1}$/;
+                if (numreg.test(event.key)) {
+                    $(this).val(event.key);
+                } else {
+                    $(this).val($(this).val().replace(/[^1-9]/g, ''));
+                }
+                if ($(this).val().length > 1) {
+                    $(this).val($(this).val().substring($(this).val().length - 1, $(this).val().length));
+                }
             },
             onKeydown: function (event) {
-                $(this).val('');
+            },
+            onKeypress: function (event) {
+            }
+        }
+        //方向键调用
+        function changeItem(changX , changY){
+            if(currentX == -1 || currentY == -1){
+                currentX = 1;
+                currentY = 9;
+                $("#19").select();
+                return ;
+            }
+            if(currentX+changX <=0 || currentY+changY<=0 || currentX+changX  > 9 || currentY+changY>9 ){
+                return ;
+            }else{
+                currentX = currentX+changX;
+                currentY = currentY+changY;
+                $("#" + currentX.toString() + currentY.toString() ).select();
             }
         }
 
         $(document).ready(function () {
 
+            $(document).on("keydown",mainControl.onKeydown);
+
+            $("#mainDiv").on("focus",function(){
+                currentX = -1;
+                currentY = -1;
+            });
+            $("a").on("click",function(){
+                currentX = -1;
+                currentY = -1;
+            });
             $(".K0").each(function (index) {
-                $(this).click(sd.onClick);
-                $(this).blur(sd.onBlur)
-                $(this).keydown(sd.onKeydown);
-                $(this).keyup(sd.onKeyUp);
-                $(this).focus(sd.onFocus);
+                $(this).on("click", sd.onClick);
+                $(this).on("blur", sd.onBlur);
+                $(this).on("keydown", sd.onKeydown);
+                $(this).on("keyup", sd.onKeyUp);
+                $(this).on("focus", sd.onFocus);
+                $(this).on("keypress", sd.onKeypress);
+                $(this).attr("ime-mode", "disabled");
+                $(this).css("ime-mode", "disabled");
             })
 
         })
     </script>
 </header>
 <body>
-<h2 style="
+<div id="mainDiv" class="mainDiv" tabindex="1"  >
+    <h2 style="
     font-size: 25px;
 ">Hello World!</h2>
-<form id="t_form">
-    <table class="ptb" border="" cellspacing="" cellpadding="">
-        <tbody>
-        <tr>
-            <!--      <td class="r1t0"><input class="sr" id="11" name="11" value="5"
-                                          readonly="readonly"></td>-->
-            <td class="r1t0"><input class="K0" id="19" name="19" value=""></td>
-            <td class="r1t0"><input class="K0" id="29" name="29" value=""></td>
-            <td class="r2t0"><input class="K0" id="39" name="39" value=""></td>
-            <td class="r1t0"><input class="K0" id="49" name="49" value=""></td>
-            <td class="r1t0"><input class="K0" id="59" name="59" value=""></td>
-            <td class="r2t0"><input class="K0" id="69" name="69" value=""></td>
-            <td class="r1t0"><input class="K0" id="79" name="79" value=""></td>
-            <td class="r1t0"><input class="K0" id="89" name="89" value=""></td>
-            <td class="r0t0"><input class="K0" id="99" name="99" value=""></td>
-        </tr>
-        <tr>
-            <td class="r1t1"><input class="K0" id="18" name="18" value=""></td>
-            <td class="r1t1"><input class="K0" id="28" name="28" value=""></td>
-            <td class="r2t1"><input class="K0" id="38" name="38" value=""></td>
-            <td class="r1t1"><input class="K0" id="48" name="48" value=""></td>
-            <td class="r1t1"><input class="K0" id="58" name="58" value=""></td>
-            <td class="r2t1"><input class="K0" id="68" name="68" value=""></td>
-            <td class="r1t1"><input class="K0" id="78" name="78" value=""></td>
-            <td class="r1t1"><input class="K0" id="88" name="88" value=""></td>
-            <td class="r0t1"><input class="K0" id="98" name="98" value=""></td>
-        </tr>
-        <tr>
-            <td class="r1t1"><input class="K0" id="17" name="17" value=""></td>
-            <td class="r1t1"><input class="K0" id="27" name="27" value=""></td>
-            <td class="r2t1"><input class="K0" id="37" name="37" value=""></td>
-            <td class="r1t1"><input class="K0" id="47" name="47" value=""></td>
-            <td class="r1t1"><input class="K0" id="57" name="57" value=""></td>
-            <td class="r2t1"><input class="K0" id="67" name="67" value=""></td>
-            <td class="r1t1"><input class="K0" id="77" name="77" value=""></td>
-            <td class="r1t1"><input class="K0" id="87" name="87" value=""></td>
-            <td class="r0t1"><input class="K0" id="97" name="97" value=""></td>
-        </tr>
-        <tr>
-            <td class="r1t2"><input class="K0" id="16" name="16" value=""></td>
-            <td class="r1t2"><input class="K0" id="26" name="26" value=""></td>
-            <td class="r2t2"><input class="K0" id="36" name="36" value=""></td>
-            <td class="r1t2"><input class="K0" id="46" name="46" value=""></td>
-            <td class="r1t2"><input class="K0" id="56" name="56" value=""></td>
-            <td class="r2t2"><input class="K0" id="66" name="66" value=""></td>
-            <td class="r1t2"><input class="K0" id="76" name="76" value=""></td>
-            <td class="r1t2"><input class="K0" id="86" name="86" value=""></td>
-            <td class="r0t2"><input class="K0" id="96" name="96" value=""></td>
-        </tr>
-        <tr>
-            <td class="r1t1"><input class="K0" id="15" name="15" value=""></td>
-            <td class="r1t1"><input class="K0" id="25" name="25" value=""></td>
-            <td class="r2t1"><input class="K0" id="35" name="35" value=""></td>
-            <td class="r1t1"><input class="K0" id="45" name="45" value=""></td>
-            <td class="r1t1"><input class="K0" id="55" name="55" value=""></td>
-            <td class="r2t1"><input class="K0" id="65" name="65" value=""></td>
-            <td class="r1t1"><input class="K0" id="75" name="75" value=""></td>
-            <td class="r1t1"><input class="K0" id="85" name="85" value=""></td>
-            <td class="r0t1"><input class="K0" id="95" name="95" value=""></td>
-        </tr>
-        <tr>
-            <td class="r1t1"><input class="K0" id="14" name="14" value=""></td>
-            <td class="r1t1"><input class="K0" id="24" name="24" value=""></td>
-            <td class="r2t1"><input class="K0" id="34" name="34" value=""></td>
-            <td class="r1t1"><input class="K0" id="44" name="44" value=""></td>
-            <td class="r1t1"><input class="K0" id="54" name="54" value=""></td>
-            <td class="r2t1"><input class="K0" id="64" name="64" value=""></td>
-            <td class="r1t1"><input class="K0" id="74" name="74" value=""></td>
-            <td class="r1t1"><input class="K0" id="84" name="84" value=""></td>
-            <td class="r0t1"><input class="K0" id="94" name="94" value=""></td>
-        </tr>
-        <tr>
-            <td class="r1t2"><input class="K0" id="13" name="13" value=""></td>
-            <td class="r1t2"><input class="K0" id="23" name="23" value=""></td>
-            <td class="r2t2"><input class="K0" id="33" name="33" value=""></td>
-            <td class="r1t2"><input class="K0" id="43" name="43" value=""></td>
-            <td class="r1t2"><input class="K0" id="53" name="53" value=""></td>
-            <td class="r2t2"><input class="K0" id="63" name="63" value=""></td>
-            <td class="r1t2"><input class="K0" id="73" name="73" value=""></td>
-            <td class="r1t2"><input class="K0" id="83" name="83" value=""></td>
-            <td class="r0t2"><input class="K0" id="93" name="93" value=""></td>
-        </tr>
-        <tr>
-            <td class="r1t1"><input class="K0" id="12" name="12" value=""></td>
-            <td class="r1t1"><input class="K0" id="22" name="22" value=""></td>
-            <td class="r2t1"><input class="K0" id="32" name="32" value=""></td>
-            <td class="r1t1"><input class="K0" id="42" name="42" value=""></td>
-            <td class="r1t1"><input class="K0" id="52" name="52" value=""></td>
-            <td class="r2t1"><input class="K0" id="62" name="62" value=""></td>
-            <td class="r1t1"><input class="K0" id="72" name="72" value=""></td>
-            <td class="r1t1"><input class="K0" id="82" name="82" value=""></td>
-            <td class="r0t1"><input class="K0" id="92" name="92" value=""></td>
-        </tr>
-        <tr>
-            <td class="r1t1"><input class="K0" id="11" name="11" value=""></td>
-            <td class="r1t1"><input class="K0" id="21" name="21" value=""></td>
-            <td class="r2t1"><input class="K0" id="31" name="31" value=""></td>
-            <td class="r1t1"><input class="K0" id="41" name="41" value=""></td>
-            <td class="r1t1"><input class="K0" id="51" name="51" value=""></td>
-            <td class="r2t1"><input class="K0" id="61" name="61" value=""></td>
-            <td class="r1t1"><input class="K0" id="71" name="71" value=""></td>
-            <td class="r1t1"><input class="K0" id="81" name="81" value=""></td>
-            <td class="r0t1"><input class="K0" id="91" name="91" value=""></td>
-        </tr>
-        </tbody>
-    </table>
-</form>
-<a style="font-size: 25px;margin-right: 20px" href="#" onclick="doCalculate()">计算</a>
-<a style="font-size: 25px;margin-right: 20px" href="#" onclick="onReset()">重置</a>
-<a style="font-size: 25px;margin-right: 20px" href="#" onclick="doCheck()">检查</a>
-<a style="font-size: 25px;margin-right: 20px" href="#" onclick="doTmpSave()">暂存</a>
-<a style="font-size: 25px;margin-right: 20px" href="#" onclick="doRecover()">恢复暂存</a>
-
-
+    <div>
+    <form  id="t_form" >
+        <table  class="ptb" >
+            <tbody>
+            <tr>
+                <!--      <td class="r1t0"><input class="sr" id="11" name="11" value="5"
+                                              readonly="readonly"></td>-->
+                <td class="r1t0"><input class="K0" id="19" name="19" value=""></td>
+                <td class="r1t0"><input class="K0" id="29" name="29" value=""></td>
+                <td class="r2t0"><input class="K0" id="39" name="39" value=""></td>
+                <td class="r1t0"><input class="K0" id="49" name="49" value=""></td>
+                <td class="r1t0"><input class="K0" id="59" name="59" value=""></td>
+                <td class="r2t0"><input class="K0" id="69" name="69" value=""></td>
+                <td class="r1t0"><input class="K0" id="79" name="79" value=""></td>
+                <td class="r1t0"><input class="K0" id="89" name="89" value=""></td>
+                <td class="r0t0"><input class="K0" id="99" name="99" value=""></td>
+            </tr>
+            <tr>
+                <td class="r1t1"><input class="K0" id="18" name="18" value=""></td>
+                <td class="r1t1"><input class="K0" id="28" name="28" value=""></td>
+                <td class="r2t1"><input class="K0" id="38" name="38" value=""></td>
+                <td class="r1t1"><input class="K0" id="48" name="48" value=""></td>
+                <td class="r1t1"><input class="K0" id="58" name="58" value=""></td>
+                <td class="r2t1"><input class="K0" id="68" name="68" value=""></td>
+                <td class="r1t1"><input class="K0" id="78" name="78" value=""></td>
+                <td class="r1t1"><input class="K0" id="88" name="88" value=""></td>
+                <td class="r0t1"><input class="K0" id="98" name="98" value=""></td>
+            </tr>
+            <tr>
+                <td class="r1t1"><input class="K0" id="17" name="17" value=""></td>
+                <td class="r1t1"><input class="K0" id="27" name="27" value=""></td>
+                <td class="r2t1"><input class="K0" id="37" name="37" value=""></td>
+                <td class="r1t1"><input class="K0" id="47" name="47" value=""></td>
+                <td class="r1t1"><input class="K0" id="57" name="57" value=""></td>
+                <td class="r2t1"><input class="K0" id="67" name="67" value=""></td>
+                <td class="r1t1"><input class="K0" id="77" name="77" value=""></td>
+                <td class="r1t1"><input class="K0" id="87" name="87" value=""></td>
+                <td class="r0t1"><input class="K0" id="97" name="97" value=""></td>
+            </tr>
+            <tr>
+                <td class="r1t2"><input class="K0" id="16" name="16" value=""></td>
+                <td class="r1t2"><input class="K0" id="26" name="26" value=""></td>
+                <td class="r2t2"><input class="K0" id="36" name="36" value=""></td>
+                <td class="r1t2"><input class="K0" id="46" name="46" value=""></td>
+                <td class="r1t2"><input class="K0" id="56" name="56" value=""></td>
+                <td class="r2t2"><input class="K0" id="66" name="66" value=""></td>
+                <td class="r1t2"><input class="K0" id="76" name="76" value=""></td>
+                <td class="r1t2"><input class="K0" id="86" name="86" value=""></td>
+                <td class="r0t2"><input class="K0" id="96" name="96" value=""></td>
+            </tr>
+            <tr>
+                <td class="r1t1"><input class="K0" id="15" name="15" value=""></td>
+                <td class="r1t1"><input class="K0" id="25" name="25" value=""></td>
+                <td class="r2t1"><input class="K0" id="35" name="35" value=""></td>
+                <td class="r1t1"><input class="K0" id="45" name="45" value=""></td>
+                <td class="r1t1"><input class="K0" id="55" name="55" value=""></td>
+                <td class="r2t1"><input class="K0" id="65" name="65" value=""></td>
+                <td class="r1t1"><input class="K0" id="75" name="75" value=""></td>
+                <td class="r1t1"><input class="K0" id="85" name="85" value=""></td>
+                <td class="r0t1"><input class="K0" id="95" name="95" value=""></td>
+            </tr>
+            <tr>
+                <td class="r1t1"><input class="K0" id="14" name="14" value=""></td>
+                <td class="r1t1"><input class="K0" id="24" name="24" value=""></td>
+                <td class="r2t1"><input class="K0" id="34" name="34" value=""></td>
+                <td class="r1t1"><input class="K0" id="44" name="44" value=""></td>
+                <td class="r1t1"><input class="K0" id="54" name="54" value=""></td>
+                <td class="r2t1"><input class="K0" id="64" name="64" value=""></td>
+                <td class="r1t1"><input class="K0" id="74" name="74" value=""></td>
+                <td class="r1t1"><input class="K0" id="84" name="84" value=""></td>
+                <td class="r0t1"><input class="K0" id="94" name="94" value=""></td>
+            </tr>
+            <tr>
+                <td class="r1t2"><input class="K0" id="13" name="13" value=""></td>
+                <td class="r1t2"><input class="K0" id="23" name="23" value=""></td>
+                <td class="r2t2"><input class="K0" id="33" name="33" value=""></td>
+                <td class="r1t2"><input class="K0" id="43" name="43" value=""></td>
+                <td class="r1t2"><input class="K0" id="53" name="53" value=""></td>
+                <td class="r2t2"><input class="K0" id="63" name="63" value=""></td>
+                <td class="r1t2"><input class="K0" id="73" name="73" value=""></td>
+                <td class="r1t2"><input class="K0" id="83" name="83" value=""></td>
+                <td class="r0t2"><input class="K0" id="93" name="93" value=""></td>
+            </tr>
+            <tr>
+                <td class="r1t1"><input class="K0" id="12" name="12" value=""></td>
+                <td class="r1t1"><input class="K0" id="22" name="22" value=""></td>
+                <td class="r2t1"><input class="K0" id="32" name="32" value=""></td>
+                <td class="r1t1"><input class="K0" id="42" name="42" value=""></td>
+                <td class="r1t1"><input class="K0" id="52" name="52" value=""></td>
+                <td class="r2t1"><input class="K0" id="62" name="62" value=""></td>
+                <td class="r1t1"><input class="K0" id="72" name="72" value=""></td>
+                <td class="r1t1"><input class="K0" id="82" name="82" value=""></td>
+                <td class="r0t1"><input class="K0" id="92" name="92" value=""></td>
+            </tr>
+            <tr>
+                <td class="r1t1"><input class="K0" id="11" name="11" value=""></td>
+                <td class="r1t1"><input class="K0" id="21" name="21" value=""></td>
+                <td class="r2t1"><input class="K0" id="31" name="31" value=""></td>
+                <td class="r1t1"><input class="K0" id="41" name="41" value=""></td>
+                <td class="r1t1"><input class="K0" id="51" name="51" value=""></td>
+                <td class="r2t1"><input class="K0" id="61" name="61" value=""></td>
+                <td class="r1t1"><input class="K0" id="71" name="71" value=""></td>
+                <td class="r1t1"><input class="K0" id="81" name="81" value=""></td>
+                <td class="r0t1"><input class="K0" id="91" name="91" value=""></td>
+            </tr>
+            </tbody>
+        </table>
+    </form>
+    </div>
+    <div class="buttonDiv">
+    <a style="font-size: 25px;margin-right: 20px" href="#" onclick="doCalculate()">计算</a>
+    <a style="font-size: 25px;margin-right: 20px" href="#" onclick="onReset()">重置</a>
+    <a style="font-size: 25px;margin-right: 20px" href="#" onclick="doCheck()">检查</a>
+    <a style="font-size: 25px;margin-right: 20px" href="#" onclick="doTmpSave()">暂存</a>
+    <a style="font-size: 25px;margin-right: 20px" href="#" onclick="doRecover()">恢复暂存</a>
+    </div>
+</div>
 <script>
 
     /**

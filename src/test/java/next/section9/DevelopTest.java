@@ -8,10 +8,14 @@ public class DevelopTest {
 
     @Test
     public void testCal(){
-        Integer i = 20 ;
+/*        Integer i = 20 ;
         int j = 18%9 ;
         doAdd(i);
-        System.out.println(i);
+        System.out.println(i);*/
+       int a = 0;
+       System.out.println(a++);
+       System.out.println(a++);
+
 
 /*
         System.out.println(20/3*3);

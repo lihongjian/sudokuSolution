@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>bubble event</title>
+    <style type="text/css">
+        body{margin:0;}
+        #one{
+            width:500px;
+            height:300px;
+            background:rgb(255,0,0);
+        }
+        #two{
+            width:400px;
+            height:260px;
+            background:rgb(255,50,50);
+        }
+        #three{
+            width:300px;
+            height:240px;
+            background:rgb(255,100,100);
+        }
+        #four{
+            width:200px;
+            height:200px;
+            background:rgb(255,150,150);
+        }
+    </style>
+</head>
+<body>
+<div id='one'>
+    <div id='two'>
+        <div id='three'>
+            <div id='four'>
+            </div>
+        </div>
+    </div>
+</div>
+
+<input id="number_ipt" type="text"/>
+
+<script>
+    var one = document.getElementById('one');
+    var two = document.getElementById('two');
+    var three = document.getElementById('three');
+    var four = document.getElementById('four');
+
+    var useCapture = true; //false为冒泡获取【目标元素先触发】    true为捕获获取【父级元素先触发】
+    one.addEventListener('click', function(event) {
+        console.log('one');
+    }, useCapture);
+    two.addEventListener('click', function(event) {
+        event.stopPropagation();
+        event.cancelBubble = true;
+        console.log('two');
+    }, useCapture);
+    three.addEventListener('click', function() {
+        console.log('three');
+    }, useCapture);
+    four.addEventListener('click', function() {
+        console.log('four');
+    }, useCapture);
+
+
+    var input = document.getElementById('number_ipt')
+    input.onkeydown = function(e) {
+        var keyCode = e.keyCode
+        if ( !isNumber(keyCode) ) return false
+    }
+
+    // 仅能输入数字
+    function isNumber(keyCode) {
+        // 数字
+        if (keyCode >= 48 && keyCode <= 57 ) return true
+        // 小数字键盘
+        if (keyCode >= 96 && keyCode <= 105) return true
+        // Backspace, del, 左右方向键
+        if (code == 8 || code == 46 || code == 37 || code == 39) return true
+        return false
+    }
+    /*
+    false
+    冒泡
+    点击four div
+    输出结果：four three two one
+
+    true
+    捕获
+    点击four div
+    输出结果： one two three four
+    */
+</script>
+</body>
+</html>
